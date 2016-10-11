@@ -1,0 +1,42 @@
+
+	<!doctype html>
+
+	<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>Ping Uptime Monitor</title>
+		<meta name="description" content="Ping Uptime Monitor">
+		<meta name="author" content="Harry Jacks">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<script type="text/javascript">
+			
+			$(document).ready(function GetPingData(){
+			      $.ajax({
+			           url: "/sites.json",
+			           method: "GET",
+			           headers: { "Accept": "application/json;odata=verbose" }
+			      })
+			       .done(function(data) {
+			       		$(".content").empty(); // clear the display
+			            allMyObjects = data;
+			            $.each(allMyObjects, function(i, item){
+							$(".content").append("Site: "+item.Site+"  |  Status: "+item.Status+"  |  Time: "+item.Time+"</br>");
+		        		});
+			      });
+			    	setTimeout(GetPingData, 30000);
+			 });
+
+		</script>
+	</head>
+
+	<body>
+		<div class="header">
+			<h2>Ping Uptime Monitor</h2>
+		</div>
+		<div class="content">
+
+		</div>
+	</body>
+	</html>
+
